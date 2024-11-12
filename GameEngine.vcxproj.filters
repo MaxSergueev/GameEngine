@@ -39,7 +39,7 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PongScene.cpp">
+    <ClCompile Include="DebugScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PongScene.h">
+    <ClInclude Include="DebugScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

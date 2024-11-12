@@ -4,11 +4,13 @@
 #include "Log.h"
 #include "Window.h"
 #include "Game.h"
+#include "DebugScene.h"
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-	Game myGame("");
-	myGame.Initialize();
-	return 0;
+    Game game("Debug Game", { new DebugScene("Hello")});
+    game.Initialize();
+
+    return 0;
 }

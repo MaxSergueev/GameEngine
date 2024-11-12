@@ -6,13 +6,6 @@ Game::Game(std::string pTitle, std::vector<Scene*> scenes)
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::cout << "SDL initialization failed. SDL Error: " << SDL_GetError();
     }
-    else {
-        std::cout << "SDL initialization succeeded!";
-    }
-    if (!mScenes.empty()) {
-        mScenes[mLoadedScene]->SetRenderer(mRenderer);
-        mScenes[mLoadedScene]->Start();
-    }
     Initialize();
 }
 
@@ -20,6 +13,13 @@ void Game::Initialize()
 {
     mWindow = new Window(800, 800);
     mRenderer = new Renderer();
+
+    if (!mScenes.empty()) {
+        mScenes[0]->Start();
+        mLoadedScene = 0;
+    }
+    mScenes[mLoadedScene]->SetRenderer(mRenderer);
+
     if (mWindow->Open() &&mRenderer->Initialize(*mWindow)) Loop();
 }
 
@@ -49,7 +49,6 @@ void Game::Update()
 }
 
 void Game::CheckInputs() {
-    if (mIsRunning) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
@@ -63,7 +62,6 @@ void Game::CheckInputs() {
                 break;
             }
         }
-    }
 }
 
 void Game::Close()
