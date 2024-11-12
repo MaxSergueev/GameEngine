@@ -1,5 +1,8 @@
 #pragma once
 #include <cmath>
+#include <iostream>
+#include <string>
+
 struct Vector2 {
 	float x, y;
 
@@ -55,6 +58,10 @@ struct Vector2 {
 
 	inline Vector2 Normalized() {
 		return (*this) / GetMagnitude();
+	}
+
+	inline std::string ToString() {
+		return "( " + std::to_string(x) + " , " + std::to_string(y) + " ) ";
 	}
 
 };
