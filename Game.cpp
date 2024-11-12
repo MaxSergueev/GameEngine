@@ -1,16 +1,18 @@
 #include "Game.h"
 #include "Rectangle.h"
-Game::Game(std::string pTitle) :mIsRunning(true)
-{
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-    {
+
+Game::Game(std::string pTitle, std::vector<Scene*> scenes)
+    : mTitle(pTitle), mIsRunning(true), mScenes(scenes) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::cout << "SDL initialization failed. SDL Error: " << SDL_GetError();
     }
-    else
-    {
+    else {
         std::cout << "SDL initialization succeeded!";
     }
-
+    if (!mScenes.empty()) {
+        mScenes[mLoadedScene]->SetRenderer(mRenderer);
+        mScenes[mLoadedScene]->Start();
+    }
     Initialize();
 }
 
@@ -34,31 +36,30 @@ void Game::Loop()
 
 void Game::Render()
 {
-    mRenderer->BeginDraw();
-    Rectangle rectangle = { {200, 200},{200, 200} };
-    mRenderer->DrawRect(rectangle);
-
-    mRenderer->EndDraw();
+        mRenderer->BeginDraw();
+        mScenes[mLoadedScene]->Render();
+        mRenderer->EndDraw();
 }
 
 void Game::Update()
 {
+    if (!mScenes.empty()) {
+        mScenes[mLoadedScene]->Update();
+    }
 }
 
-void Game::CheckInputs()
-{
-    if (mIsRunning)
-    {
+void Game::CheckInputs() {
+    if (mIsRunning) {
         SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
-            {
+        while (SDL_PollEvent(&event)) {
+            switch (event.type) {
             case SDL_QUIT:
                 mIsRunning = false;
                 break;
             default:
-                //Send input to scene
+                if (!mScenes.empty()) {
+                    mScenes[mLoadedScene]->OnInput(event);
+                }
                 break;
             }
         }
@@ -67,5 +68,8 @@ void Game::CheckInputs()
 
 void Game::Close()
 {
+    if (!mScenes.empty()) {
+        mScenes[mLoadedScene]->Close();
+    }
     mWindow->Close();
 }
