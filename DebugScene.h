@@ -6,7 +6,7 @@ class DebugScene : public Scene {
 private:
     float leftPaddleX, leftPaddleY;
     float rightPaddleX, rightPaddleY;
-    float paddleWidth, paddleHeight, paddleSpeed;
+    float paddleWidth, paddleHeight, paddleSpeed, paddleMoveL, paddleMoveR;
 
     float ballX, ballY;
     float ballVelocityX, ballVelocityY;
