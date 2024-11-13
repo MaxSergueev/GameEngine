@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Rectangle.h"
+#include "Time.h"
 
 Game::Game(std::string pTitle, std::vector<Scene*> scenes)
     : mTitle(pTitle), mIsRunning(true), mScenes(scenes) {
@@ -26,9 +27,11 @@ void Game::Initialize()
 void Game::Loop()
 {
     while (mIsRunning) {
+        Time::ComputeDeltaTime();
         CheckInputs();
         Update();
         Render();
+        Time::DelayTime();
 
     }
     Close();
