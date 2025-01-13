@@ -8,6 +8,9 @@ struct Vector2 {
 
 	static const Vector2 Zero, One;
 
+	// Constructor to initialize x and y
+	Vector2(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
+
 	inline void operator+=(Vector2& right) {
 		x += right.x;
 		y += right.y;

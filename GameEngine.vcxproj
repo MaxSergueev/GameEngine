@@ -155,13 +155,24 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="Alien.h" />
+    <ClInclude Include="BoxCollider2D.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Collider2D.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="DebugScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SpaceInvadersScene.h" />
+    <ClInclude Include="SpacePlayer.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
