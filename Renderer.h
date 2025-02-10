@@ -1,6 +1,7 @@
 #pragma once
 #include "Rectangle.h"
 #include "Window.h"
+#include "SDL_image.h"
 
 class Renderer
 {
