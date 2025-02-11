@@ -2,11 +2,11 @@
 #include <algorithm>
 #include "Actor.h"
 #include "BoxCollider2D.h"
-Scene::Scene(const std::string& pTitle)
-    : title(pTitle)
-    , mRenderer(nullptr)
-    , mUpdatingActors(false)
-{
+
+Scene::Scene(const std::string& pTitle) {
+	title = pTitle;
+	mRenderer = nullptr;
+	mUpdatingActors = false;
 }
 
 Scene::~Scene() {
@@ -109,8 +109,8 @@ void Scene::AddActor(Actor* actor) {
         mPendingActors.emplace_back(actor);
     }
     else {
-        actor->OnStart();
         mActors.emplace_back(actor);
+        actor->OnStart();
     }
     actor->AttachScene(this);
 }
@@ -121,7 +121,6 @@ void Scene::RemoveActor(Actor* actor) {
     if (iter != mPendingActors.end()) {
         std::iter_swap(iter, mPendingActors.end() - 1);
         mPendingActors.pop_back();
-        actor->OnEnd();
         delete actor;
         return;
     }
@@ -134,4 +133,37 @@ void Scene::RemoveActor(Actor* actor) {
         actor->OnEnd();
         delete actor;
     }
+}
+
+void Scene::UpdateAllActors() {
+
+	mUpdatingActors = true;
+
+	// Update all existing actors
+	for (Actor* actor : mActors) {
+		actor->Update();
+	}
+
+	mUpdatingActors = false;
+
+    // Add any pending Actors
+	if (!mPendingActors.empty()) {
+		mActors.insert(mActors.end(), mPendingActors.begin(), mPendingActors.end());
+		mPendingActors.clear();
+	}
+
+    // Remove any actors marked for deletion
+    auto it = std::remove_if(mActors.begin(), mActors.end(),
+        [](Actor* actor) {
+            return actor->GetState() == ActorState::Dead;  // Return true if actor should be removed
+        });
+
+    // Delete actors that were marked for removal
+    for (auto i = it; i != mActors.end(); ++i) {
+        delete* i;
+    }
+
+    // Actually remove them from the vector
+    mActors.erase(it, mActors.end());
+
 }

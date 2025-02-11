@@ -9,6 +9,7 @@
 class Scene {
 public:
     Scene(const std::string& pTitle = "Scene");
+
     virtual ~Scene();
 
     virtual void SetRenderer(Renderer* renderer);
@@ -24,6 +25,7 @@ public:
     // Actor Management
     void AddActor(Actor* actor);
     void RemoveActor(Actor* actor);
+	void UpdateAllActors();
     const std::vector<Actor*>& GetActors() const { return mActors; }
 
 protected:
