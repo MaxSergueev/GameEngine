@@ -57,7 +57,6 @@ public:
 
     template<typename T, typename... Args>
     T* AddComponent(Args&&... args) {
-        // Automatically pass `this` (the owning Actor) as the first argument
         T* component = new T(this, std::forward<Args>(args)...);
 
         auto iter = std::upper_bound(mComponents.begin(), mComponents.end(),
@@ -140,14 +139,10 @@ protected:
             }
         }
     }
-    //std::vector<Component*> mComponents; ///< The components attached to the actor.
-    std::vector<Component*> mComponentsToAdd; ///< Components to add to the actor.
-    std::vector<Component*> mComponentsToRemove; ///< Components to remove from the actor.
 
 private:
     Scene* mScene;
     ActorState mState;
     Transform2D mTransform;
     std::vector<Component*> mComponents;
-    bool mUpdatingComponents;
 };
