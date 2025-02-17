@@ -24,12 +24,15 @@ DebugScene::DebugScene(const std::string& title) : Scene(title) {
 }
 
 void DebugScene::Start() {
-    Assets::LoadTexture(*mRenderer, "Resources/pokeball.png", "ball");
-	AddActor(new Actor());
-    SpriteComponent* sprite = mActors[0]->AddComponent<SpriteComponent>(Assets::GetTexture("ball"), 0);
-    mActors[0]->GetTransform().SetPosition(500, 500);
+    Assets::LoadTexture(*mRenderer, "Resources/dirtblock.png", "ball");
+	//AddActor(new Actor());
+    //SpriteComponent* sprite = mActors[0]->AddComponent<SpriteComponent>(Assets::GetTexture("ball"), 0);
+    Actor* actor = new Actor(this);
+    SpriteComponent* sprite = new SpriteComponent(actor, Assets::GetTexture("ball"));
 
-    mRenderer->AddSprite(sprite);
+    actor->GetTransform().SetPosition(500, 500);
+
+    //mRenderer->AddSprite(sprite);
 }
 
 void DebugScene::Load() {

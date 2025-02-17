@@ -2,6 +2,7 @@
 #include "Component.h"
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include "Vec2.h"
 
 #ifndef M_PI
 #define M_PI 3.141592
@@ -35,6 +36,10 @@ public:
         y = positionY;
     }
 
+    Vector2 GetPosition() {
+        return Vector2{ positionX, positionY };
+    }
+
     // Scale setters and getters
     void SetScale(float x, float y) {
         scaleX = x;
@@ -44,6 +49,9 @@ public:
     void GetScale(float& x, float& y) const {
         x = scaleX;
         y = scaleY;
+    }
+    Vector2 GetScale() {
+        return Vector2{ scaleX, scaleY };
     }
 
     // Rotation setters and getters (in radians)

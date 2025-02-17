@@ -8,6 +8,7 @@ struct Rectangle
     Vector2 position;
     Vector2 dimensions;
 
+
     SDL_Rect ToSdlRect() const
     {
         return SDL_Rect{

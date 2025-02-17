@@ -56,17 +56,12 @@ void Renderer::DrawSprite(Actor& pActor, const Texture& pTex, Rectangle pSourceR
 {
     SDL_Rect destinationRect;
     Transform2D transform = pActor.GetTransform();
-
-    float scaleX, scaleY;
-	transform.GetScale(scaleX, scaleY);
-    destinationRect.w = static_cast<int>(pTex.GetWidth() * scaleX);
-    destinationRect.h = static_cast<int>(pTex.GetHeight() * scaleY);
-
-    float posX, posY;
-	transform.GetPosition(posX, posY);
-    destinationRect.x = static_cast<int>(posX - pOrigin.x);
-    destinationRect.y = static_cast<int>(posY - pOrigin.y);
-
+    destinationRect.w = static_cast<int>(pTex.GetWidth() * transform.GetScale().x);
+    destinationRect.h = static_cast<int>(pTex.GetHeight() * transform.GetScale().y);
+    destinationRect.x = static_cast<int>(transform.GetPosition().x - pOrigin.x);
+    destinationRect.y = static_cast<int>(transform.GetPosition().y - pOrigin.y);
+    SDL_SetRenderDrawColor(mSdlRenderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(mSdlRenderer, &destinationRect);
     SDL_Rect* sourceSDL = nullptr;
     if (pSourceRect != Rectangle::NullRect)
     {

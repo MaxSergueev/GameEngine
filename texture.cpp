@@ -33,11 +33,11 @@ bool Texture::Load(Renderer& pRenderer, const std::string& pFileName) {
 void Texture::Unload() {
     if (mSdlTexture) {
         SDL_DestroyTexture(mSdlTexture);
-        mSdlTexture = nullptr;
-    }
+        //mSdlTexture = nullptr;
+    }/*
     mWidth = 0;
     mHeight = 0;
-    mFileName = "";
+    mFileName = "";*/
 }
 
 void Texture::UpdateInfo(int& width, int& height) const {

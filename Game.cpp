@@ -18,6 +18,7 @@ void Game::Initialize()
     {
 		mScenes[mLoadedScene]->SetRenderer(mRenderer);
         mScenes[mLoadedScene]->Load();
+        mScenes[mLoadedScene]->Start();
         Loop();
     }
 
@@ -43,7 +44,7 @@ void Game::Render()
         return;
     }
         mRenderer->BeginDraw();
-        mScenes[mLoadedScene]->Render();
+        //mScenes[mLoadedScene]->Render();
         mRenderer->Draw();
         mRenderer->EndDraw();
 }

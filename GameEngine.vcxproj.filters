@@ -133,5 +133,8 @@
     <Image Include="..\..\..\Desktop\pokeball.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\..\..\Desktop\dirtblock.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

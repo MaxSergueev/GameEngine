@@ -30,6 +30,6 @@ void SpriteComponent::SetTexture(const Texture& pTexture)
 void SpriteComponent::Draw(Renderer& pRenderer)
 {
 	Vector2 origin{ mTexWidth / 2.0f, mTexHeight / 2.0f };
-	pRenderer.DrawSprite(mOwner, *mTexture, Rectangle(), origin, Flip::None);
+	pRenderer.DrawSprite(mOwner, *mTexture, {}, origin, Flip::None);
 }
 
