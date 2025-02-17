@@ -14,14 +14,13 @@ void Game::Initialize()
 {
     mWindow = new Window(800, 800);
     mRenderer = new Renderer();
-
-    if (!mScenes.empty()) {
-        mScenes[0]->Start();
-        mLoadedScene = 0;
+    if (mWindow->Open() && mRenderer->Initialize(*mWindow))
+    {
+		mScenes[mLoadedScene]->SetRenderer(mRenderer);
+        mScenes[mLoadedScene]->Load();
+        Loop();
     }
-    mScenes[mLoadedScene]->SetRenderer(mRenderer);
 
-    if (mWindow->Open() &&mRenderer->Initialize(*mWindow)) Loop();
 }
 
 void Game::Loop()
@@ -39,8 +38,13 @@ void Game::Loop()
 
 void Game::Render()
 {
+    if (!mRenderer) {
+        std::cout << "Error: Renderer is nullptr in Game::Render()" << std::endl;
+        return;
+    }
         mRenderer->BeginDraw();
         mScenes[mLoadedScene]->Render();
+        mRenderer->Draw();
         mRenderer->EndDraw();
 }
 

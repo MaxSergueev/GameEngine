@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Assets.h"
 #include <algorithm>
 #include "Actor.h"
 #include "BoxCollider2D.h"
@@ -30,6 +31,19 @@ void Scene::Initialize() {
 	// Base scene doesn't need to do anything
 	// Derived scenes should implement their initialization
 }
+
+void Scene::Unload()
+{
+    //Free actors pointers memory
+    //Because ~Actor() calls RemoveActor, we have to use a while loop
+    while (!mActors.empty())
+    {
+        delete mActors.back();
+    }
+    //Free up resources
+    Assets::Clear();
+}
+
 
 void Scene::Start() {
     // Start all existing actors
@@ -67,8 +81,27 @@ void Scene::Update() {
     mActors.erase(iter, mActors.end());
 }
 
+//void Scene::Render() {
+//    for (auto actor : mActors) {
+//        BoxCollider2D* collider = actor->GetComponent<BoxCollider2D>();
+//        if (collider) {
+//            collider->Render(*mRenderer);
+//        }
+//    }
+//}
+
 void Scene::Render() {
+    if (!mRenderer) {
+        std::cout << "Error: Renderer is nullptr in Scene::Render()" << std::endl;
+        return;
+    }
+
     for (auto actor : mActors) {
+        SpriteComponent* sprite = actor->GetComponent<SpriteComponent>();
+        if (sprite) {
+            sprite->Draw(*mRenderer);
+        }
+
         BoxCollider2D* collider = actor->GetComponent<BoxCollider2D>();
         if (collider) {
             collider->Render(*mRenderer);
@@ -82,12 +115,10 @@ void Scene::OnInput(const SDL_Event& event) {
 }
 
 void Scene::Close() {
-    // Call OnEnd for all actors
     for (Actor* actor : mActors) {
         actor->OnEnd();
     }
 
-    // Clean up all actors
     for (Actor* actor : mActors) {
         delete actor;
     }

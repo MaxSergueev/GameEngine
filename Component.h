@@ -1,6 +1,6 @@
 #pragma once
-
 class Actor;
+class Renderer;
 
 class Component
 {

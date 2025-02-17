@@ -46,6 +46,11 @@ struct Vector2 {
 		return { left.x / scalar, left.y / scalar };
 	}
 
+	bool operator!=(const Vector2& other) const
+	{
+		return x != other.x || y != other.y;
+	}
+
 	inline float GetMagnitude(){
 		return sqrt(x * x + y * y);
 	}

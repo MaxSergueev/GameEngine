@@ -1,4 +1,6 @@
 #include "DebugScene.h"
+#include "Assets.h"
+#include "SpriteComponent.h"
 #include <SDL.h>
 #include <cmath>
 
@@ -22,6 +24,15 @@ DebugScene::DebugScene(const std::string& title) : Scene(title) {
 }
 
 void DebugScene::Start() {
+    Assets::LoadTexture(*mRenderer, "Resources/pokeball.png", "ball");
+	AddActor(new Actor());
+    SpriteComponent* sprite = mActors[0]->AddComponent<SpriteComponent>(Assets::GetTexture("ball"), 0);
+    mActors[0]->GetTransform().SetPosition(500, 500);
+
+    mRenderer->AddSprite(sprite);
+}
+
+void DebugScene::Load() {
 }
 
 void DebugScene::Update() {
@@ -58,16 +69,8 @@ void DebugScene::Update() {
 }
 
 void DebugScene::Render() {
-
-    Rectangle leftPaddleRect = { {leftPaddleX, leftPaddleY}, {paddleWidth, paddleHeight} };
-    mRenderer->DrawRect(leftPaddleRect);
-
-    Rectangle rightPaddleRect = { {rightPaddleX, rightPaddleY}, {paddleWidth, paddleHeight} };
-    mRenderer->DrawRect(rightPaddleRect);
-
-    Rectangle ballRect = { {ballX, ballY}, {ballRadius * 2, ballRadius * 2} };
-    mRenderer->DrawRect(ballRect);
-
+	mRenderer->BeginDraw();
+    mRenderer->DrawSprites();
 }
 
 void DebugScene::OnInput(const SDL_Event& event) {

@@ -5,16 +5,18 @@
 #include "Window.h"
 #include "Game.h"
 #include "DebugScene.h"
-#include "SpaceInvadersScene.h"
+//#include "SpaceInvadersScene.h"
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    //Game game("Debug Game", { new DebugScene("Hello")});
-    SpaceInvadersScene* scene = new SpaceInvadersScene();
-    scene->Initialize();
-    Game game("Space invaders", { scene });
+    Game game("Debug Game", { new DebugScene("Hello")});
     game.Initialize();
+
+    /*DebugScene* scene = new DebugScene("Hello");
+	scene->Initialize();
+	Game game("Debug Game", { scene });
+	game.Initialize();*/
 
     return 0;
 }

@@ -5,17 +5,31 @@
 
 #include "Renderer.h"
 
-class texture
-{
-	public:
+#include "SDL.h"
+#include "SDL_image.h"
+#include "Log.h"
 
-	protected: 
+class Texture {
+public:
+    Texture();
+    ~Texture();
 
-	private:
+    bool Load(Renderer& pRenderer, const std::string& pFileName);
 
-		const std::string mFileName;
+    void Unload();
 
+    void UpdateInfo(int& width, int& height) const;
 
+    int GetWidth() const;
 
+    int GetHeight() const;
+
+	SDL_Texture* GetSdlTexture() const { return mSdlTexture; }
+
+private:
+    std::string mFileName;
+    SDL_Texture* mSdlTexture;
+    int mWidth;
+    int mHeight;
 };
 

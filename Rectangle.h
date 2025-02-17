@@ -16,5 +16,13 @@ struct Rectangle
             static_cast<int>(dimensions.x),
             static_cast<int>(dimensions.y) };
     }
+
+    static const Rectangle NullRect;
+
+    bool operator!=(const Rectangle& other) const
+    {
+        return position != other.position || dimensions != other.dimensions;
+    }
+
 };
 

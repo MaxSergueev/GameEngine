@@ -55,9 +55,10 @@ public:
         mScene = scene;
     }
 
-    template<typename T>
-    T* AddComponent(int updateOrder = 100) {
-        T* component = new T(*this, updateOrder);
+    template<typename T, typename... Args>
+    T* AddComponent(Args&&... args) {
+        // Automatically pass `this` (the owning Actor) as the first argument
+        T* component = new T(this, std::forward<Args>(args)...);
 
         auto iter = std::upper_bound(mComponents.begin(), mComponents.end(),
             component,
@@ -68,6 +69,32 @@ public:
         mComponents.insert(iter, component);
         return component;
     }
+    
+
+    /*
+    void AddComponent(Component* pComponent)
+    {
+        if (mUpdatingComponents)    mComponentsToAdd.emplace_back(pComponent);
+        else
+        {
+            int updateOrder = pComponent->getUpdateOrder();
+
+            for (int i = mComponents.size() - 1; i >= 0; i--)
+            {
+                if (mComponents[i] != nullptr && mComponents[i]->getUpdateOrder() == updateOrder)
+                {
+                    mComponents.insert(mComponents.begin() + i + 1, pComponent);
+                    updateOrder = -1;
+                    break;
+                }
+            }
+            if (updateOrder != -1)
+            {
+                mComponents.push_back(pComponent);
+            }
+        }
+    }
+    */
 
     void RemoveComponent(Component* component) {
         auto iter = std::find(mComponents.begin(), mComponents.end(), component);
@@ -113,10 +140,14 @@ protected:
             }
         }
     }
+    //std::vector<Component*> mComponents; ///< The components attached to the actor.
+    std::vector<Component*> mComponentsToAdd; ///< Components to add to the actor.
+    std::vector<Component*> mComponentsToRemove; ///< Components to remove from the actor.
 
 private:
     Scene* mScene;
     ActorState mState;
     Transform2D mTransform;
     std::vector<Component*> mComponents;
+    bool mUpdatingComponents;
 };

@@ -13,12 +13,16 @@ public:
     virtual ~Scene();
 
     virtual void SetRenderer(Renderer* renderer);
+    Renderer& GetRenderer() { return *mRenderer; }
     virtual void Start();
     virtual void Update();
     virtual void Render();
     virtual void OnInput(const SDL_Event& event);
     virtual void Close();
     virtual void Initialize();
+
+    virtual void Load() = 0;
+    virtual void Unload();
 
     std::string GetTitle() const;
 

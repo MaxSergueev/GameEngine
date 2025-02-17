@@ -16,6 +16,7 @@ public:
     DebugScene(const std::string& title);
 
     void Start() override;
+	virtual void Load() override;
     void Update() override;
     void Render() override;
     void OnInput(const SDL_Event& event) override;
