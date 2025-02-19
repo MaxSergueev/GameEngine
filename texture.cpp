@@ -6,7 +6,7 @@ Texture::Texture()
 }
 
 Texture::~Texture() {
-    Unload();
+ //Unload(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
 bool Texture::Load(Renderer& pRenderer, const std::string& pFileName) {
@@ -33,14 +33,10 @@ bool Texture::Load(Renderer& pRenderer, const std::string& pFileName) {
 void Texture::Unload() {
     if (mSdlTexture) {
         SDL_DestroyTexture(mSdlTexture);
-        //mSdlTexture = nullptr;
-    }/*
-    mWidth = 0;
-    mHeight = 0;
-    mFileName = "";*/
+    }
 }
 
-void Texture::UpdateInfo(int& width, int& height) const {
+void Texture::UpdateInfo(int& width, int& height) {
     width = mWidth;
     height = mHeight;
 }

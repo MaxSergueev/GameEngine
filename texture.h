@@ -12,19 +12,19 @@
 class Texture {
 public:
     Texture();
-    ~Texture();
+    ~Texture();// = default;
 
     bool Load(Renderer& pRenderer, const std::string& pFileName);
 
     void Unload();
 
-    void UpdateInfo(int& width, int& height) const;
+    void UpdateInfo(int& width, int& height);
 
     int GetWidth() const;
 
     int GetHeight() const;
 
-	SDL_Texture* GetSdlTexture() const { return mSdlTexture; }
+	inline SDL_Texture* GetSdlTexture() const { return mSdlTexture; }
 
 private:
     std::string mFileName;

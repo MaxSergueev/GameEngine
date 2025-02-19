@@ -60,8 +60,8 @@ void Renderer::DrawSprite(Actor& pActor, const Texture& pTex, Rectangle pSourceR
     destinationRect.h = static_cast<int>(pTex.GetHeight() * transform.GetScale().y);
     destinationRect.x = static_cast<int>(transform.GetPosition().x - pOrigin.x);
     destinationRect.y = static_cast<int>(transform.GetPosition().y - pOrigin.y);
-    SDL_SetRenderDrawColor(mSdlRenderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(mSdlRenderer, &destinationRect);
+    //SDL_SetRenderDrawColor(mSdlRenderer, 255, 255, 255, 255);
+    //SDL_RenderFillRect(mSdlRenderer, &destinationRect);
     SDL_Rect* sourceSDL = nullptr;
     if (pSourceRect != Rectangle::NullRect)
     {
@@ -71,7 +71,7 @@ void Renderer::DrawSprite(Actor& pActor, const Texture& pTex, Rectangle pSourceR
             Maths::Round(pSourceRect.dimensions.x),
             Maths::Round(pSourceRect.dimensions.y) };
     }
-    SDL_RenderCopyEx(mSdlRenderer,
+   SDL_RenderCopyEx(mSdlRenderer,
         pTex.GetSdlTexture(),
         sourceSDL,
         &destinationRect,
@@ -103,11 +103,11 @@ void Renderer::RemoveSprite(SpriteComponent* pSprite)
 
 
 
-void Renderer::DrawRect(Rectangle& rRect)
-{
-    SDL_SetRenderDrawColor(mSdlRenderer, 255, 255, 255, 255);
-    SDL_Rect sdlRect = rRect.ToSdlRect();
-    SDL_RenderFillRect(mSdlRenderer, &sdlRect);
-}
+//void Renderer::DrawRect(Rectangle& rRect)
+//{
+//    SDL_SetRenderDrawColor(mSdlRenderer, 255, 255, 255, 255);
+//    SDL_Rect sdlRect = rRect.ToSdlRect();
+//    SDL_RenderFillRect(mSdlRenderer, &sdlRect);
+//}
 
 
