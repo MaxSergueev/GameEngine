@@ -6,7 +6,7 @@ Texture::Texture()
 }
 
 Texture::~Texture() {
- //Unload(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ //Unload();
 }
 
 bool Texture::Load(Renderer& pRenderer, const std::string& pFileName) {
